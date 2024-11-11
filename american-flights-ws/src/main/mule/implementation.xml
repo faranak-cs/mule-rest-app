@@ -11,7 +11,7 @@
   <http:listener-config name="inbound-request" doc:name="Listener Config" doc:id="b5c62f-a84a3a">
     <http:listener-connection host="0.0.0.0" port="8081" />
   </http:listener-config>
-
+  
   <db:config name="Database_Config" doc:name="mySQL DB">
     <db:my-sql-connection 
       host="mudb.learn.mulesoft.com"
@@ -21,19 +21,24 @@
       database="training" />
   </db:config>
 
+  <!-- "getFlights" flow -->
   <flow name="getFlights">
+    <logger doc:name="Logger" doc:id="ahcnzm" />
 
-  <!-- HTTP Listener -->
+    <!-- HTTP Listener -->
     <!-- <http:listener path="flights" config-ref="inbound-request" doc:name="HTTP /flights" /> -->
   
-  <!-- DATABASE Connection -->
+    <!-- Database -->
     <db:select doc:name="Query Flights" config-ref="Database_Config" >
       <db:sql>
         <![CDATA[Select * FROM american]]>
       </db:sql>
     </db:select>
 
-  <!-- Transform Message -->
+    <!-- Set Variable -->
+    <set-variable variableName="databasePayload" value="#[payload]" doc:name="Set Variable Payload" doc:id="9f6113-641288"/>
+
+    <!-- Transform Message -->
     <ee:transform doc:name="Transform Message" doc:id="e361a1-699db3">
       <ee:message>
         <ee:set-payload>
@@ -58,6 +63,13 @@
         </ee:set-payload>
       </ee:message>
     </ee:transform>
+
+    <!-- Logger -->
+    <logger level="INFO" message="#[
+      %dw 2.0
+      output application/json
+      ---
+      payload]" doc:name="Log Payload" doc:id="2a7a1e-ce98cb"/>
     
   </flow>
   

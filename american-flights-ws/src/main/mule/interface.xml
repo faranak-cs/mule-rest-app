@@ -152,7 +152,7 @@
 
     <!-- GET \flights -->
     <flow name="get:\flights:american-flights-api-config">
-        <!-- <flow-ref doc:name="getFlightsRef" name="getFlights"/> -->
+        <flow-ref doc:name="getFlightsRef" name="getFlights"/>
         <logger level="INFO" message="get:\flights:american-flights-api-config" />
         <ee:transform doc:name="Transform Message">
             <ee:message>
