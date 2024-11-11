@@ -1,0 +1,29 @@
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xsi:schemaLocation="   http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+	http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+  
+  <http:listener-config name="inbound-request" doc:name="Listener Config" doc:id="b5c62f-a84a3a">
+    <http:listener-connection host="0.0.0.0" port="8081" />
+  </http:listener-config>
+
+  <flow name="getFlights">
+    <http:listener path="flights" config-ref="inbound-request" doc:name="HTTP /flights" />
+
+    <set-payload value="Flight info" doc:name="Set Response" doc:id="e43e98-1a9a01" />
+  </flow>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</mule>
