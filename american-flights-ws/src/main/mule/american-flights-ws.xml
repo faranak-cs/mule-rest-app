@@ -1,15 +1,52 @@
 <mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:http="http://www.mulesoft.org/schema/mule/http" xsi:schemaLocation="   http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-	http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="   http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+	http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+	http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+	http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
   
+
+
   <http:listener-config name="inbound-request" doc:name="Listener Config" doc:id="b5c62f-a84a3a">
     <http:listener-connection host="0.0.0.0" port="8081" />
   </http:listener-config>
 
-  <flow name="getFlights">
-    <http:listener path="flights" config-ref="inbound-request" doc:name="HTTP /flights" />
+  <db:config name="Database_Config" doc:name="mySQL DB">
+    <db:my-sql-connection 
+      host="mudb.learn.mulesoft.com"
+      port="3306"
+      user="mule"
+      password="mule"
+      database="training" />
+  </db:config>
 
-    <set-payload value="Flight info" doc:name="Set Response" doc:id="e43e98-1a9a01" />
+  <flow name="getFlights">
+
+  <!-- HTTP Listener -->
+    <http:listener path="flights" config-ref="inbound-request" doc:name="HTTP /flights" />
+  
+  <!-- DATABASE Connection -->
+    <db:select doc:name="Query Flights" config-ref="Database_Config" >
+      <db:sql>
+        <![CDATA[Select * FROM american]]>
+      </db:sql>
+    </db:select>
+
+  <!-- Transform Message -->
+    <ee:transform doc:name="Transform Message" doc:id="e361a1-699db3">
+      <ee:message>
+        <ee:set-payload>
+          <![CDATA[
+            %dw 2.0
+            output application/json
+            ---
+            payload
+          ]]>
+        </ee:set-payload>
+      </ee:message>
+    </ee:transform>
+    
   </flow>
   
 

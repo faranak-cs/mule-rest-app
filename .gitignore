@@ -20,6 +20,7 @@
 *.rar
 *.exchange_modules_tmp
 *.DS_Store
+*.mvn
 settings.json
 */.vscode
 
