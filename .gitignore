@@ -21,6 +21,7 @@
 *.exchange_modules_tmp
 *.DS_Store
 *.mvn
+*/src/test/resources/*
 settings.json
 */.vscode
 
