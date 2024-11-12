@@ -1,3 +1,4 @@
+// DataWeave 2.0 script
 %dw 2.0
 output application/json
 ---
@@ -14,3 +15,7 @@ payload map ( payload01 , indexOfPayload01 ) -> {
         totalSeats: payload01.totalSeats default 0
     }
 }
+
+// payload map {} 
+//      OR
+// payload map (object, index) -> {}
