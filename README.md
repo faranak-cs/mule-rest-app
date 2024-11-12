@@ -1,4 +1,5 @@
 # MuleSoft REST App
+
 ## Diagrams
 
 ### API flow
@@ -7,3 +8,10 @@
 
 ### Mule 4 flow
 ![mule-flow](https://github.com/user-attachments/assets/d04e4732-f616-4a4f-b45d-f5b2757cfda9)
+
+## Version
+| Library      | Version |
+| -----------  | ----------- |
+| Mule         | 4.8 |
+| DataWeave    | 2.8 |
+| Java         | 17  |
