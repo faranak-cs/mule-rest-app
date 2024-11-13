@@ -2,20 +2,20 @@
 %dw 2.0
 output application/json
 ---
-payload map ( payload01 , indexOfPayload01 ) -> {
-    ID: payload01.ID,
-    code: (payload01.code1 default "") ++ (payload01.code2 default ""),
-    price: payload01.price default 0,
-    departureDate: payload01.takeOffDate as String default "",
-    origin: payload01.fromAirport default "",
-    destination: payload01.toAirport default "",
-    emptySeats: payload01.seatsAvailable default 0,
+payload map ( object, index ) -> {
+    ID: object.ID,
+    code: (object.code1 default "") ++ (object.code2 default ""),
+    price: object.price default 0,
+    departureDate: object.takeOffDate as String default "",
+    origin: object.fromAirport default "",
+    destination: object.toAirport default "",
+    emptySeats: object.seatsAvailable default 0,
     plane: {
-        "type": payload01.planeType default "",
-        totalSeats: payload01.totalSeats default 0
+        "type": object.planeType default "",
+        totalSeats: object.totalSeats default 0
     }
 }
 
-// payload map {} 
+// payload map {} : array of empty objects
 //      OR
 // payload map (object, index) -> {}

@@ -21,6 +21,15 @@ users: {(payload map ((user)) -> {
     }}
 )}
 // by using {()}, each element in the array is converted to an object as a key-value pair
+// $$ = index
+// $ = value
+
+// %dw 2.0
+// output application/xml
+// ---
+// flights: {(payload map {
+//     'flight$$': $
+// })}
 
 // output: xml
 <users>

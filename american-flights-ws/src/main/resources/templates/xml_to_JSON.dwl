@@ -16,6 +16,7 @@ payload.users.*user map ((user) -> {
     firstname: user.@firstname,
     lastname: user.lastname
 })
+// by using ".*" , we get repeated elements in the XML as an array
 
 // output: json
 [
