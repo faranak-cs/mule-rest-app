@@ -15,3 +15,4 @@
 | Mule         | 4.8 |
 | DataWeave    | 2.8 |
 | Java         | 17  |
+| Maven        | 3.9.8 |
