@@ -7,7 +7,7 @@
 	  http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
 	  http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
   
-  <!-- "getFlights" flow -->
+  <!-- GET \flights -->
   <flow name="getFlights">
     <!-- Database -->
     <db:select doc:name="Query Flights" config-ref="Database_Config" >
@@ -15,18 +15,45 @@
         <![CDATA[Select * FROM american]]>
       </db:sql>
     </db:select>
-
     <!-- Set Variable -->
     <set-variable variableName="databasePayload" value="#[payload]" doc:name="Set Variable Payload" doc:id="9f6113-641288"/>
-
     <!-- Transform Message -->
     <ee:transform doc:name="Transform Message" doc:id="e361a1-699db3">
       <ee:message>
-        <ee:set-payload resource="flights_transform.dwl" />
+        <ee:set-payload resource="GET_flights_transform.dwl" />
       </ee:message>
     </ee:transform>
-
     <!-- Logger -->
     <logger level="INFO" message="#[ %dw 2.0 output application/json --- payload]" doc:name="Log Payload" doc:id="2a7a1e-ce98cb"/>
+  </flow>
+
+  <!-- GET \flights\{id} -->
+  <flow name="getFlightById" >
+    <!-- Get Query Params -->
+    <ee:transform doc:name="Transform Message">
+      <ee:variables>
+        <ee:set-variable variableName="id">attributes.uriParams.'id'</ee:set-variable>
+    </ee:variables>
+    </ee:transform>
+    <!-- Transform Message -->
+    <ee:transform doc:name="Transform Message" doc:id="8b5d89-d8fec5">
+      <ee:message>
+        <ee:set-payload resource="GET_flight_transform.dwl" />
+      </ee:message>
+    </ee:transform>
+    <!-- Logger -->
+    <logger level="INFO" message="#[ %dw 2.0 output application/json --- payload]" doc:name="Log Payload" doc:id="nnhcqo" />
+  </flow>
+
+  <!-- POST \flights -->
+  <flow name="addFlight" >
+    <!-- Transform Message -->
+    <ee:transform doc:name="Transform Message" doc:id="8b5d89-d8ffc5">
+      <ee:message>
+        <ee:set-payload resource="POST_flight_transform.dwl" />
+      </ee:message>
+    </ee:transform>
+    <!-- Logger -->
+    <logger level="INFO" message="#[ %dw 2.0 output application/json --- payload]" doc:name="Log Payload" doc:id="rzjqtt" />
   </flow>
 </mule>

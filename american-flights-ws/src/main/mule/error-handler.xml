@@ -8,7 +8,7 @@
         http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
     
     <!-- Error Handlers -->
-    <error-handler name="flights-error-handler" >
+    <error-handler name="flights-error-handler" doc:id="47145944-3b92-4033-a7ea-1a856d9fd788" >
         <on-error-propagate type="APIKIT:BAD_REQUEST">
             <ee:transform doc:name="Transform Message">
                 <ee:message>
