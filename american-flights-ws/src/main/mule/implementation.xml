@@ -1,33 +1,14 @@
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" 
+  xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:db="http://www.mulesoft.org/schema/mule/db"
-	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="   http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-	http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
-	http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
-	http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" 
+  xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+	  http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+	  http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
   
-
-
-  <http:listener-config name="inbound-request" doc:name="Listener Config" doc:id="b5c62f-a84a3a">
-    <http:listener-connection host="0.0.0.0" port="8081" />
-  </http:listener-config>
-  
-  <db:config name="Database_Config" doc:name="mySQL DB">
-    <db:my-sql-connection 
-      host="mudb.learn.mulesoft.com"
-      port="3306"
-      user="mule"
-      password="mule"
-      database="training" />
-  </db:config>
-
   <!-- "getFlights" flow -->
   <flow name="getFlights">
-    <logger doc:name="Logger" doc:id="ahcnzm" />
-
-    <!-- HTTP Listener -->
-    <!-- <http:listener path="flights" config-ref="inbound-request" doc:name="HTTP /flights" /> -->
-  
     <!-- Database -->
     <db:select doc:name="Query Flights" config-ref="Database_Config" >
       <db:sql>
@@ -46,26 +27,6 @@
     </ee:transform>
 
     <!-- Logger -->
-    <logger level="INFO" message="#[
-      %dw 2.0
-      output application/json
-      ---
-      payload]" doc:name="Log Payload" doc:id="2a7a1e-ce98cb"/>
-    
+    <logger level="INFO" message="#[ %dw 2.0 output application/json --- payload]" doc:name="Log Payload" doc:id="2a7a1e-ce98cb"/>
   </flow>
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
 </mule>
