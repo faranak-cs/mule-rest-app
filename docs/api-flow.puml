@@ -1,0 +1,32 @@
+@startuml
+
+package "VS Code" {
+  [Anypoint Code Builder] as ACB
+}
+
+package "API Spec" {
+  [api.raml] as API
+  [example.raml] as EX
+  [dataType.raml] as DT  
+}
+
+package "Anypoint Exchange" {
+  [assets] as AS
+}
+
+package "Mule App: */src/main/mule" {
+  
+  [interface.xml] as INT
+  note right: Validate + Route requests
+  [implementation.xml] as IMP
+  note right: Backend for calls to interface
+}
+
+
+ACB ---> API : Design
+API ---> AS : Publish
+AS ---> INT : Integrate + Implement
+INT ---> IMP : <flow-ref name="referenceFlowHere">
+
+
+@enduml

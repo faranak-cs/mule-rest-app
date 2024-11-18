@@ -1,0 +1,12 @@
+@startuml
+
+package "Mule" {
+  [Source / Listener] as S
+  [Processor] as P
+  [Connector] as C
+}
+
+S -> P : event [attributes, payload, variables]
+P -> C : event
+
+@enduml
