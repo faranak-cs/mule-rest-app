@@ -2,6 +2,9 @@
 
 ## Diagrams
 
+### Integration types
+![mule-integration-types](https://github.com/user-attachments/assets/ab8d998f-7e68-4146-83e3-318dc7c247e9)
+
 ### API-led Connectivity
 
 ![api-led-connectivity](https://github.com/user-attachments/assets/fa525efb-cc07-4a2b-9223-ae165f8435b9)
