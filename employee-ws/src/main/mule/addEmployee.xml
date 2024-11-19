@@ -1,0 +1,33 @@
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd  http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd  http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd  http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+  <http:listener-config basePath="/api/v1/" name="Listener-config">
+    <http:listener-connection host="0.0.0.0" port="8081"></http:listener-connection>
+  </http:listener-config>
+  <db:config name="MySQL_Config">
+    <db:my-sql-connection password="admin123" database="test" port="3306" host="localhost" user="root"></db:my-sql-connection>
+  </db:config>
+  <flow name="AddEmployee">
+    <http:listener allowedMethods="POST, GET" config-ref="Listener-config" doc:id="jjvuaq" doc:name="Listener" path="/addEmployee">
+      <http:response statusCode="#[vars.httpStatus default 200]">
+        <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+      </http:response>
+      <http:error-response statusCode="#[vars.httpStatus default 500]">
+        <http:body>#[payload]</http:body>
+        <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+      </http:error-response>
+    </http:listener>
+    <logger doc:id="rvbaum" doc:name="Start" message="Request received!"></logger>
+    <db:insert doc:id="nurqlg" doc:name="Insert Employee" config-ref="MySQL_Config">
+      <db:sql>INSERT INTO employees (emp_name, emp_role) VALUES (:name, :role);</db:sql>
+            <db:input-parameters><![CDATA[#[{
+  name: payload.employeeName,
+    role: payload.employeeRole
+}]]]></db:input-parameters>        
+    </db:insert>
+    <ee:transform doc:id="vxyekc" doc:name="Set Response">
+      <ee:message>
+        <ee:set-payload resource="POST_response.dwl"></ee:set-payload>
+      </ee:message>
+    </ee:transform>
+    <logger doc:id="tmvsoy" doc:name="End" message="Response Sent!"></logger>
+  </flow>
+</mule>

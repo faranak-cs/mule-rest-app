@@ -1,0 +1,28 @@
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd     http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd  http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd  http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+  <db:config name="PostgreSQL_Config">
+    <db:generic-connection password="admin123" driverClassName="org.postgresql.Driver" user="postgres" url="jdbc:postgresql://localhost:5432/postgres"></db:generic-connection>
+  </db:config>
+  <flow name="getEmployee">
+    <http:listener config-ref="Listener-config" doc:id="dcznbl" doc:name="Listener" path="/getEmployee">
+      <http:response statusCode="#[vars.httpStatus default 200]">
+        <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+      </http:response>
+      <http:error-response statusCode="#[vars.httpStatus default 500]">
+        <http:body>#[payload]</http:body>
+        <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+      </http:error-response>
+    </http:listener>
+        <logger doc:name="Start" doc:id="huowbu" message="Request received!"/>
+    <db:select config-ref="PostgreSQL_Config" doc:id="kafifv" doc:name="Select Employee">
+      <db:sql>
+        <![CDATA[SELECT * FROM employees;]]>
+      </db:sql>
+    </db:select>
+        <ee:transform doc:name="Transform" doc:id="pkoebe" >
+            <ee:message>
+                <ee:set-payload resource="GET_response.dwl"/>
+            </ee:message>
+        </ee:transform>
+        <logger doc:name="End" doc:id="mujvjk" message="Response sent!"/>
+  </flow>
+</mule>
