@@ -1,0 +1,15 @@
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd     http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+	http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+  <flow name="dynamicResponse">
+        <http:listener path="response" config-ref="Listener-config" doc:name="Listener" doc:id="hmrdpk" >
+          <http:response statusCode="#[vars.httpStatus ]" reasonPhrase="#[vars.httpReason]"/>
+          <http:error-response statusCode="#[vars.httpStatus default 500]">
+            <http:body>#[payload]</http:body>
+            <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+          </http:error-response>
+        </http:listener>
+        <set-payload value='#["success-response"]' doc:name="Set Response Body" doc:id="udsydo" />
+        <set-variable value="300" variableName="httpStatus" doc:name="Set Status Code" doc:id="jofivf" />
+        <set-variable value='#["NOTOK"]' variableName="httpReason" doc:name="Set Status Variable" doc:id="ybpbmi" /></flow>
+</mule>
