@@ -15,7 +15,10 @@
         <http:headers>#[vars.outboundHeaders default {}]</http:headers>
       </http:error-response>
     </http:listener>
+        <logger doc:name="Print payload" doc:id="olormi" message="#[payload
+]"/>
     <logger doc:id="rvbaum" doc:name="Start" message="Request received!"></logger>
+        <logger doc:name="Print payload" doc:id="wpxiwx" message="#[payload]"/>
     <db:insert doc:id="nurqlg" doc:name="Insert Employee" config-ref="MySQL_Config">
       <db:sql>INSERT INTO employees (emp_name, emp_role) VALUES (:name, :role);</db:sql>
             <db:input-parameters><![CDATA[#[{
@@ -23,11 +26,14 @@
     role: payload.employeeRole
 }]]]></db:input-parameters>        
     </db:insert>
+        <logger doc:name="Print payload" doc:id="izzqvn" />
     <ee:transform doc:id="vxyekc" doc:name="Set Response">
       <ee:message>
         <ee:set-payload resource="POST_response.dwl"></ee:set-payload>
       </ee:message>
     </ee:transform>
+        <logger doc:name="Print payload" doc:id="nivyev" message="#[payload]"/>
     <logger doc:id="tmvsoy" doc:name="End" message="Response Sent!"></logger>
+        <logger doc:name="Print payload" doc:id="gehjhc" message="#[payload]"/>
   </flow>
 </mule>
