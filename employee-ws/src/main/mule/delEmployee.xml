@@ -15,12 +15,13 @@
         </http:listener>
         <logger doc:name="Print payload" doc:id="lijguv" message="#[payload]"/>
         <logger doc:name="Start" doc:id="dzvorn" message="Request received!"/>
-        <db:delete doc:name="Delete Employee" doc:id="bgytfl" config-ref="MySQL_Config">
-            <db:sql><![CDATA[DELETE FROM employees WHERE emp_id = :id;]]></db:sql>
+        <db:stored-procedure doc:name="Delete Employee" doc:id="przwdj" config-ref="MySQL_Config">
+            <db:sql><![CDATA[{CALL DeleteById(:id)}
+]]></db:sql>
             <db:input-parameters><![CDATA[#[{
   id: attributes.uriParams.emp_id
-}]]]></db:input-parameters>        
-        </db:delete>
+}]]]></db:input-parameters>    
+        </db:stored-procedure>
         <logger doc:name="Print payload" doc:id="vuvupo" message="#[payload]"/>
         <ee:transform doc:name="Set Response" doc:id="hbrkqe" >
             <ee:message>
