@@ -5,8 +5,8 @@
   <db:config name="MySQL_Config">
     <db:my-sql-connection password="admin123" database="test" port="3306" host="localhost" user="root"></db:my-sql-connection>
   </db:config>
-  <flow name="AddEmployee">
-    <http:listener allowedMethods="POST, GET" config-ref="Listener-config" doc:id="jjvuaq" doc:name="Listener" path="/addEmployee">
+  <flow name="addEmployee">
+    <http:listener allowedMethods="POST, GET, DELETE" config-ref="Listener-config" doc:id="jjvuaq" doc:name="Listener" path="/addEmployee">
       <http:response statusCode="#[vars.httpStatus default 200]">
         <http:headers>#[vars.outboundHeaders default {}]</http:headers>
       </http:response>

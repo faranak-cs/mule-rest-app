@@ -1,0 +1,33 @@
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd     http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+	http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+	http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+  <flow name="delEmployee">
+        <http:listener path="/delEmployee/{emp_id}" config-ref="Listener-config" doc:name="Listener" doc:id="mnjsny" >
+          <http:response statusCode="#[vars.httpStatus default 200]">
+            <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+          </http:response>
+          <http:error-response statusCode="#[vars.httpStatus default 500]">
+            <http:body>#[payload]</http:body>
+            <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+          </http:error-response>
+        </http:listener>
+        <logger doc:name="Print payload" doc:id="lijguv" message="#[payload]"/>
+        <logger doc:name="Start" doc:id="dzvorn" message="Request received!"/>
+        <db:delete doc:name="Delete Employee" doc:id="bgytfl" config-ref="MySQL_Config">
+            <db:sql><![CDATA[DELETE FROM employees WHERE emp_id = :id;]]></db:sql>
+            <db:input-parameters><![CDATA[#[{
+  id: attributes.uriParams.emp_id
+}]]]></db:input-parameters>        
+        </db:delete>
+        <logger doc:name="Print payload" doc:id="vuvupo" message="#[payload]"/>
+        <ee:transform doc:name="Set Response" doc:id="hbrkqe" >
+            <ee:message>
+                <ee:set-payload resource="DEL_response.dwl"/>
+            </ee:message>
+        </ee:transform>
+        <logger doc:name="Print payload" doc:id="yxbkjm" message="#[payload]"/>
+        <logger doc:name="End" doc:id="yranpe" message="Response sent!"/>
+        <logger doc:name="Print payload" doc:id="vdwxwm" message="#[payload]"/></flow>
+</mule>
