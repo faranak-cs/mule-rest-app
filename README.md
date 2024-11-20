@@ -3,19 +3,17 @@
 ## Diagrams
 
 ### Integration types
-![mule-integration-types](https://github.com/user-attachments/assets/ab8d998f-7e68-4146-83e3-318dc7c247e9)
+![mule-integration-types](https://github.com/user-attachments/assets/d7a816bb-fd9f-487e-8627-81fdd1df025f)
 
-### API-led Connectivity
-
+### API-led connectivity
 ![api-led-connectivity](https://github.com/user-attachments/assets/fa525efb-cc07-4a2b-9223-ae165f8435b9)
 
-### Mule API flow
+### Mule API-lifecycle
+![API-Lifecycle](https://github.com/user-attachments/assets/bb5544ba-c064-49a9-9fe8-801a58e4b64b)
 
-![api-flow](https://github.com/user-attachments/assets/3db41cd3-c61e-4f0c-91f8-cafcfe7b5d6d)
+### Mule flow
+![Mule flow](https://github.com/user-attachments/assets/976db3a7-0d20-4e29-bdba-ce0a459186d1)
 
-### Mule 4 flow
-
-![mule-flow](https://github.com/user-attachments/assets/f83f4893-a68a-48ad-aa68-2f1debfa802d)
 
 ## Version
 
@@ -25,3 +23,4 @@
 | DataWeave | 2.8     |
 | Java      | 17      |
 | Maven     | 3.9.8   |
+| VS Code   | 1.95    |
