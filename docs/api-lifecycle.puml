@@ -1,4 +1,4 @@
-@startuml
+@startuml "API-Lifecycle"
 
 package "VS Code" {
   [Anypoint Code Builder] as ACB

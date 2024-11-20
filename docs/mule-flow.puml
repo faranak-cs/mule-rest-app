@@ -1,12 +1,13 @@
-@startuml
+@startuml "Mule flow"
 
-package "Mule" {
-  [Source / Listener] as S
+package "Mule flow" {
+  [Listener] as L
   [Processor] as P
+  note right: (attributes, payload, variables)
   [Connector] as C
 }
 
-S -> P : event [attributes, payload, variables]
+L -> P : event 
 P -> C : event
 
 @enduml
