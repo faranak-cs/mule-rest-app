@@ -1,0 +1,21 @@
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd     http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+	http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+  <flow name="dynamicResponseTransform">
+        <http:listener path="response/t" config-ref="Listener-config" doc:name="Listener" doc:id="cbttvl" >
+          <http:response statusCode="#[vars.httpStatus]" reasonPhrase="#[vars.httpReason]"/>
+          <http:error-response statusCode="#[vars.httpStatus default 500]">
+            <http:body>#[payload]</http:body>
+            <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+          </http:error-response>
+        </http:listener>
+        <ee:transform doc:name="Set Response" doc:id="prrasg" >
+            <ee:message>
+                <ee:set-payload resource="response.dwl"/>
+            </ee:message>            
+        <ee:variables>
+            <ee:set-variable variableName="httpStatus" resource="responseCode.dwl"/>
+            <ee:set-variable variableName="httpReason" resource="responseReason.dwl"/>
+        </ee:variables>    
+        </ee:transform></flow>
+</mule>

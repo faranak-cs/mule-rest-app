@@ -22,3 +22,6 @@ name: {
   <mname>Ahmad</mname>
   <lname> KHAN</lname>
 </name>
+
+
+// date: now() as String {format: "yyyy-MM-dd"}
